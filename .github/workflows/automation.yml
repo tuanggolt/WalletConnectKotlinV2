@@ -1,0 +1,22 @@
+name: Appium CI
+on:
+  push:
+    branches: [research/automation_tests]
+
+jobs:
+  e2e:
+    runs-on: macos-latest
+    environment: CI
+    name: Appium Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build Android Apps
+        run: ./gradlew build
+      - name: Run Appium Server
+        uses: Elyniss/appium-server-action@alpha
+      - name: Run Instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew installDebug && ./gradlew connectedCheck

@@ -1,17 +1,86 @@
 package com.walletconnect.walletconnectv2.wallet
 
-//fixme
-class AuthClientIntegrationAndroidTest {
-//    @get:Rule
-//    val activityRule = WCIntegrationActivityScenarioRule()
-//    private val app = ApplicationProvider.getApplicationContext<IntegrationTestApplication>()
-//
-//    private val metadata = WalletConnect.Model.AppMetaData(
-//        name = "Kotlin Wallet",
-//        description = "Wallet description",
-//        url = "example.wallet",
-//        icons = listOf("https://gblobscdn.gitbook.com/spaces%2F-LJJeCjcLrr53DcT1Ml7%2Favatar.png?alt=media")
-//    )
+import androidx.test.core.app.ApplicationProvider
+import com.walletconnect.walletconnectv2.BaseAppiumTest
+import com.walletconnect.walletconnectv2.client.Sign
+import com.walletconnect.walletconnectv2.engine.domain.Validator
+import com.walletconnect.walletconnectv2.utils.IntegrationTestApplication
+import org.junit.Assert
+import org.junit.Test
+import org.openqa.selenium.By
+import org.openqa.selenium.NoSuchElementException
+import java.net.URI
+
+
+internal class AuthClientIntegrationAndroidTest : BaseAppiumTest()  {
+    private val app = ApplicationProvider.getApplicationContext<IntegrationTestApplication>()
+
+    @Test
+    fun testChromeBrowser() {
+        chromeDriver[URI(Browser.Dapp.url).toString()]
+        Assert.assertEquals(Browser.Dapp.url, chromeDriver.currentUrl)
+    }
+
+    @Test
+    fun testWalletApp() {
+        nativeDriver.activateApp(Native.Wallet.appPackage)
+        val activity = nativeDriver.currentActivity()
+        val pkg = nativeDriver.currentPackage
+        Assert.assertEquals(Native.Wallet.appActivity, activity)
+        Assert.assertEquals(Native.Wallet.appPackage, pkg)
+    }
+
+    @Test
+    fun testDappApp() {
+        nativeDriver.activateApp(Native.Dapp.appPackage)
+        val activity = nativeDriver.currentActivity()
+        val pkg = nativeDriver.currentPackage
+        Assert.assertEquals(Native.Dapp.appActivity, activity)
+        Assert.assertEquals(Native.Dapp.appPackage, pkg)
+    }
+
+    @Test
+    fun TU001KotlinWalletwithJSDapp() {
+        chromeDriver[URI(Browser.Dapp.url).toString()]
+        Assert.assertEquals(Browser.Dapp.url, chromeDriver.currentUrl)
+
+        chromeDriver.findElement(By.xpath("//p[text()='Ethereum Kovan']")).click()
+        chromeDriver.findElement(By.xpath("//button[text()='Connect']")).click()
+        try {
+            chromeDriver.findElement(By.xpath("//button[text()='New Pairing']")).click()
+        } catch (e: NoSuchElementException){
+            chromeDriver.findElement(By.xpath("//a[text()='QR Code']")).click()
+        }
+        chromeDriver.findElement(By.xpath("//a[text()='Copy to clipboard']")).click()
+
+        Assert.assertNotNull(Validator.validateWCUri(chromeDriver.clipboardText))
+
+        nativeDriver.terminateApp(Native.Wallet.appPackage)
+        nativeDriver.activateApp(Native.Wallet.appPackage)
+        nativeDriver.findElement(By.id(Native.Wallet.id + "pasteUri")).click()
+        nativeDriver.findElement(By.id(Native.Wallet.id + "tvPasteUri")).sendKeys(chromeDriver.clipboardText)
+        nativeDriver.findElement(By.id(Native.Wallet.id + "btnOk")).click()
+        nativeDriver.findElement(By.id(Native.Wallet.id + "btnApprove")).click()
+
+        chromeDriver.activateApp(Browser.appPackage)
+    }
+
+    private val metadata = Sign.Model.AppMetaData(
+        name = "Kotlin Wallet",
+        description = "Wallet description",
+        url = "example.wallet",
+        icons = listOf("https://gblobscdn.gitbook.com/spaces%2F-LJJeCjcLrr53DcT1Ml7%2Favatar.png?alt=media")
+    )
+
+    private val initParams = Sign.Params.Init(
+        application = app,
+        useTls = true,
+        hostName = "relay.walletconnect.org",
+        projectId = "2ee94aca5d98e6c05c38bce02bee952a",
+        metadata = metadata
+    )
+
+
 //
 //    @Test
 //    fun responderApprovePairingAndGetSessionProposalTest() {

@@ -139,3 +139,9 @@ fun DependencyHandlerScope.security() {
     val androidSecurityVersion = "1.0.0"
     "implementation"("androidx.security:security-crypto:$androidSecurityVersion")
 }
+
+
+fun DependencyHandlerScope.appium() {
+    val appiumVersion = "8.1.0"
+    "androidTestImplementation"("io.appium:java-client:$appiumVersion")
+}

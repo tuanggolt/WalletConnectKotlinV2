@@ -48,7 +48,9 @@ android {
             "META-INF/LICENSE.md",
             "META-INF/LICENSE-notice.md",
             "META-INF/AL2.0",
-            "META-INF/LGPL2.1"
+            "META-INF/LGPL2.1",
+            "META-INF/INDEX.LIST",
+            "META-INF/io.netty.versions.properties"
         )
     }
 }
@@ -68,6 +70,7 @@ dependencies {
     robolectric()
     mockk()
     timber()
+    appium()
 }
 
 afterEvaluate {
