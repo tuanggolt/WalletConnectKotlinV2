@@ -16,12 +16,12 @@ internal open class BaseAppiumTest {
     fun setup() {
         val browserCapabilities = DesiredCapabilities()
         browserCapabilities.setCapability("browserName", "Chrome")
-        chromeDriver = AndroidDriver(URL("http://192.168.0.136:4723/wd/hub"), browserCapabilities)
+        chromeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), browserCapabilities)
         chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
 
 
-        val native = DesiredCapabilities()
-        nativeDriver = AndroidDriver(URL("http://192.168.0.136:4723/wd/hub"), native)
+        val nativeCapabilities = DesiredCapabilities()
+        nativeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), nativeCapabilities)
         nativeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
     }
 
