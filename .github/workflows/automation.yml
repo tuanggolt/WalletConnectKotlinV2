@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Build Android Apps
-        run: ./gradlew build
+        run: ./gradlew build -x test
       - name: Run Appium Server
         run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
