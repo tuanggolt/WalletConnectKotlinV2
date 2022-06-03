@@ -1,7 +1,7 @@
 name: Appium CI
 on:
   push:
-    branches: [research/automation_tests]
+    branches: [ research/automation_tests ]
 
 jobs:
   e2e:
@@ -14,8 +14,10 @@ jobs:
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
-        run: appium --allow-insecure chromedriver_autodownload &
+        run: |
+          appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
         run: |
           emulator @Secondary -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
-         ./gradlew installDebug && ./gradlew connectedCheck
+          ./gradlew installDebug
+          ./gradlew connectedCheck
