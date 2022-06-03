@@ -19,7 +19,7 @@ jobs:
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
-        run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload &
+        run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload --session-override &
       - name: Run Instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
