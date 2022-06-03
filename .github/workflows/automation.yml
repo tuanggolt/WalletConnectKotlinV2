@@ -14,11 +14,12 @@ jobs:
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
+        run: appium --allow-insecure chromedriver_autodownload &
+      - name: Run Emulator
         run: |
-          appium --allow-insecure chromedriver_autodownload &
-      - name: Run Instrumented tests
-        run: |
-          emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
-          adb wait-for-device
-          ./gradlew installDebug
-          ./gradlew connectedCheck
+          $ANDROID_HOME/emulator/emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
+          $ANDROID_HOME/platform-tools/adb wait-for-device
+      - name: Install Sample Apps
+        run: ./gradlew installDebug
+      - name: Run Instrumented Tests
+        run: ./gradlew connectedCheck
