@@ -18,6 +18,7 @@ jobs:
           appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
         run: |
-          emulator @Secondary -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
+          emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
+          adb wait-for-device
           ./gradlew installDebug
           ./gradlew connectedCheck
