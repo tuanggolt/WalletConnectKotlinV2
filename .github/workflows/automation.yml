@@ -23,6 +23,6 @@ jobs:
       - name: Run Instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 30
           arch: arm64-v8a
           script: ./gradlew installDebug && ./gradlew connectedCheck
