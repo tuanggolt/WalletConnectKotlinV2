@@ -19,9 +19,10 @@ jobs:
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
-        run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload --session-override &
+        run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 32
+          arch: arm64-v8a
           script: ./gradlew installDebug && ./gradlew connectedCheck
