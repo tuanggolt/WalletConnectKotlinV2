@@ -16,12 +16,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Run Instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          profile: pixel_3a
-          script: ./gradlew installDebug && ./gradlew connectedCheck
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
