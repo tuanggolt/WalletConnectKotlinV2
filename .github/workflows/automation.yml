@@ -19,7 +19,7 @@ jobs:
 #      - name: Build Android Apps
 #        run: ./gradlew build
       - name: Run Appium Server
-        uses: Elyniss/appium-server-action@alpha7
+        uses: Elyniss/appium-server-action@alpha8
       - name: Run Instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
