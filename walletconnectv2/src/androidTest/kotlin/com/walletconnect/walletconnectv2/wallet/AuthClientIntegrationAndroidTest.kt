@@ -29,13 +29,13 @@ internal class AuthClientIntegrationAndroidTest  {
         browserCapabilities.setCapability("browserName", "Chrome")
         browserCapabilities.setCapability("automationName", "UiAutomator2")
         chromeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), browserCapabilities)
-        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30L))
 
 
         val nativeCapabilities = DesiredCapabilities()
         nativeCapabilities.setCapability("automationName", "UiAutomator2")
         nativeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), nativeCapabilities)
-        nativeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
+        nativeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30L))
     }
 
     @Test
