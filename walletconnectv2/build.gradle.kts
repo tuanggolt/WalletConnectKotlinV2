@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.squareup.sqldelight")
     `maven-publish`
+    id("de.mannodermaus.android-junit5")
 }
 
 tasks.withType<Test> {
@@ -41,7 +42,16 @@ android {
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.time.ExperimentalTime"
     }
 
-    testOptions.unitTests.isIncludeAndroidResources = true
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+
+        junitPlatform {
+            instrumentationTests {
+                integrityCheckEnabled = true
+            }
+        }
+    }
 
     packagingOptions {
         resources.excludes += setOf(

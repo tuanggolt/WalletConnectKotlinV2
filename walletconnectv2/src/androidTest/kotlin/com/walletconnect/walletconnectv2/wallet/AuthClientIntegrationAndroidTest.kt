@@ -1,19 +1,40 @@
 package com.walletconnect.walletconnectv2.wallet
 
 import androidx.test.core.app.ApplicationProvider
-import com.walletconnect.walletconnectv2.BaseAppiumTest
+import com.walletconnect.walletconnectv2.Browser
+import com.walletconnect.walletconnectv2.Native
 import com.walletconnect.walletconnectv2.client.Sign
 import com.walletconnect.walletconnectv2.engine.domain.Validator
 import com.walletconnect.walletconnectv2.utils.IntegrationTestApplication
+import io.appium.java_client.android.AndroidDriver
 import org.junit.Assert
 import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
+import org.openqa.selenium.remote.DesiredCapabilities
 import java.net.URI
+import java.net.URL
+import java.time.Duration
 
-
-internal class AuthClientIntegrationAndroidTest : BaseAppiumTest()  {
+internal class AuthClientIntegrationAndroidTest  {
     private val app = ApplicationProvider.getApplicationContext<IntegrationTestApplication>()
+    private var nativeDriver: AndroidDriver
+    private var chromeDriver: AndroidDriver
+
+    init {
+        val browserCapabilities = DesiredCapabilities()
+        browserCapabilities.setCapability("browserName", "Chrome")
+        chromeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), browserCapabilities)
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
+
+
+        val nativeCapabilities = DesiredCapabilities()
+        nativeDriver = AndroidDriver(URL("http://10.0.2.2:4723/wd/hub"), nativeCapabilities)
+        nativeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L))
+    }
 
     @Test
     fun testChromeBrowser() {

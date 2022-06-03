@@ -4,6 +4,8 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 const val kotlinVersion = "1.6.10"
 val jvmVersion = JavaVersion.VERSION_11
 const val sqlDelightVersion = "1.5.2"
+const val androidJUnitVersion = "1.8.2.0"
+
 
 fun DependencyHandlerScope.scanner() {
     val mlKitBarcode = "16.0.1"
@@ -95,6 +97,7 @@ fun DependencyHandlerScope.glide_N_kapt() {
 
 fun DependencyHandlerScope.jUnit5() {
     val jUnit5Version = "5.7.2"
+    val androidTestVersion = "1.3.0"
 
     "testImplementation"(platform("org.junit:junit-bom:$jUnit5Version"))
     "testImplementation"("org.junit.jupiter:junit-jupiter-api:$jUnit5Version")
@@ -102,8 +105,8 @@ fun DependencyHandlerScope.jUnit5() {
     "testImplementation"("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
 
     "androidTestImplementation"("org.junit.jupiter:junit-jupiter-api:$jUnit5Version")
-    "androidTestImplementation"("de.mannodermaus.junit5:android-test-core:1.3.0")
-    "androidTestRuntimeOnly"("de.mannodermaus.junit5:android-test-runner:1.3.0")
+    "androidTestImplementation"("de.mannodermaus.junit5:android-test-core:$androidTestVersion")
+    "androidTestRuntimeOnly"("de.mannodermaus.junit5:android-test-runner:$androidTestVersion")
 }
 
 fun DependencyHandlerScope.androidXTest() {
