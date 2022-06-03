@@ -21,6 +21,7 @@ jobs:
         with:
           api-level: 29
           profile: pixel_3a
+          script: ./gradlew installDebug && ./gradlew connectedCheck
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
