@@ -20,7 +20,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          profile: Pixel3a
+          profile: Pixel 3a
           script: ./gradlew installDebug && ./gradlew connectedCheck
       - name: Build Android Apps
         run: ./gradlew assemble
