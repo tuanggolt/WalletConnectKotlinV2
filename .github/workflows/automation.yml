@@ -20,9 +20,14 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          profile: Pixel 3a
-          script: ./gradlew installDebug && ./gradlew connectedCheck
+          script: avdmanager list device
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
         run: npm install -g appium@1.22.3 && npm install wd && appium --allow-insecure chromedriver_autodownload &
+      - name: Run Instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          profile: Pixel3a
+          script: ./gradlew installDebug && ./gradlew connectedCheck
