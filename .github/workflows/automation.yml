@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-#      - name: Setup Java JDK
-#        uses: actions/setup-java@v3.3.0
-#        with:
-#          distribution: 'temurin'
-#          java-version: '17'
-#      - name: Build Android Apps
-#        run: ./gradlew build
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.3.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Android Apps
+        run: ./gradlew build
       - name: Run Appium Server
         run: npm install -g appium && npm install wd && appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
