@@ -24,7 +24,7 @@ jobs:
 #      - name: Run Instrumented Tests
 #        run: ./gradlew connectedCheck
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     environment: CI
     name: Appium Test
     steps:
