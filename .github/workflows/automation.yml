@@ -4,46 +4,46 @@ on:
     branches: [ research/automation_tests ]
 
 jobs:
-#  e2e:
-#    runs-on: ubuntu-latest
-#    environment: CI
-#    name: Appium Test Self Hosted
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#      - name: Build Android Apps
-#        run: ./gradlew assemble
-#      - name: Run Appium Server
-#        run: appium --allow-insecure chromedriver_autodownload &
-#      - name: Run Emulator
-#        run: |
-#          $ANDROID_HOME/emulator/emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
-#          $ANDROID_HOME/platform-tools/adb wait-for-device
-#      - name: Install Sample Apps
-#        run: ./gradlew installDebug
-#      - name: Run Instrumented Tests
-#        run: ./gradlew connectedCheck
   e2e:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: CI
-    name: Appium Test
+    name: Appium Test Self Hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Java JDK
-        uses: actions/setup-java@v3.3.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
       - name: Build Android Apps
         run: ./gradlew assemble
       - name: Run Appium Server
-        run: npm install -g appium@1.22.3 && npm install wd && appium --allow-insecure chromedriver_autodownload &
-      - name: Run Instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 25
-          profile: pixel_3a
-          target: google_apis
-          arch: x86_64
-          script: ./gradlew installDebug && ./gradlew connectedCheck
+        run: appium --allow-insecure chromedriver_autodownload &
+      - name: Run Emulator
+        run: |
+          $ANDROID_HOME/emulator/emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
+          $ANDROID_HOME/platform-tools/adb wait-for-device
+      - name: Install Sample Apps
+        run: ./gradlew installDebug
+      - name: Run Instrumented Tests
+        run: ./gradlew connectedCheck
+#  e2e:
+#    runs-on: macos-latest
+#    environment: CI
+#    name: Appium Test
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Setup Java JDK
+#        uses: actions/setup-java@v3.3.0
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#      - name: Build Android Apps
+#        run: ./gradlew assemble
+#      - name: Run Appium Server
+#        run: npm install -g appium@1.22.3 && npm install wd && appium --allow-insecure chromedriver_autodownload &
+#      - name: Run Instrumented tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 32
+#          profile: pixel_3a
+#          target: google_apis
+#          arch: x86_64
+#          script: ./gradlew installDebug && ./gradlew connectedCheck
