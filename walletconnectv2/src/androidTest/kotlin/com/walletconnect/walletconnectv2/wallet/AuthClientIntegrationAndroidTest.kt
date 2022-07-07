@@ -70,9 +70,9 @@ internal class AuthClientIntegrationAndroidTest  {
         chromeDriver.findElement(By.xpath("//p[text()='Ethereum Kovan']")).click()
         chromeDriver.findElement(By.xpath("//button[text()='Connect']")).click()
         try {
-            chromeDriver.findElement(By.xpath("//button[text()='New Pairing']")).click()
-        } catch (e: NoSuchElementException){
             chromeDriver.findElement(By.xpath("//a[text()='QR Code']")).click()
+        } catch (e: NoSuchElementException){
+            chromeDriver.findElement(By.xpath("//button[text()='New Pairing']")).click()
         }
         chromeDriver.findElement(By.xpath("//a[text()='Copy to clipboard']")).click()
 
@@ -83,7 +83,7 @@ internal class AuthClientIntegrationAndroidTest  {
         nativeDriver.findElement(By.id(Native.Wallet.id + "pasteUri")).click()
         nativeDriver.findElement(By.id(Native.Wallet.id + "tvPasteUri")).sendKeys(chromeDriver.clipboardText)
         nativeDriver.findElement(By.id(Native.Wallet.id + "btnOk")).click()
-        nativeDriver.findElement(By.id(Native.Wallet.id + "btnApprove")).click()
+//        nativeDriver.findElement(By.id(Native.Wallet.id + "btnApprove")).click()
 
         chromeDriver.activateApp(Browser.appPackage)
     }
