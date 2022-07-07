@@ -36,6 +36,10 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
           architecture: arm64
+      - name: Build Android Apps
+        run: ./gradlew assemble
+      - name: Run Appium Server
+        run: npm install -g appium@1.22.3 && npm install wd && appium --allow-insecure chromedriver_autodownload &
       - name: Run Instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -44,7 +48,3 @@ jobs:
           target: google_apis
           arch: x86_64
           script: ./gradlew installDebug && ./gradlew connectedCheck
-      - name: Build Android Apps
-        run: ./gradlew assemble
-      - name: Run Appium Server
-        run: npm install -g appium@1.22.3 && npm install wd && appium --allow-insecure chromedriver_autodownload &
