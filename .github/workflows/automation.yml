@@ -17,7 +17,7 @@ jobs:
         run: appium --allow-insecure chromedriver_autodownload &
       - name: Run Emulator
         run: |
-          $ANDROID_HOME/emulator/emulator @Secondary -no-window -no-snapshot -noaudio -no-boot-anim &
+          $ANDROID_HOME/emulator/emulator @Secondary -no-snapshot -noaudio -no-boot-anim &
           $ANDROID_HOME/platform-tools/adb wait-for-device
       - name: Install Sample Apps
         run: ./gradlew installDebug
